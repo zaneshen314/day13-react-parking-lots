@@ -13,7 +13,7 @@ const ParkingLotOperator = () => {
         const fetchStrategies = async () => {
             try {
                 const data = await getParkingStrategy();
-                setStrategies(data);
+                setStrategies(data || []);
             } catch (error) {
                 console.error('Error fetching parking strategies:', error);
             }
@@ -22,14 +22,18 @@ const ParkingLotOperator = () => {
         fetchStrategies();
     }, []);
 
+    const validatePlateNumber = (plateNumber) => {
+        const plateNumberPattern = /^[A-Z]{2}-\d{4}$/;
+        return plateNumberPattern.test(plateNumber);
+    };
+
     const handlePark = async () => {
         if (!plateNumber) {
             alert('Plate number cannot be empty.');
             return;
         }
 
-        const plateNumberPattern = /^[A-Z]{2}-\d{4}$/;
-        if (!plateNumberPattern.test(plateNumber)) {
+        if (!validatePlateNumber(plateNumber)) {
             alert('Invalid plate number format. (e.g., AB-1234).');
             setPlateNumber('');
             return;
@@ -49,8 +53,7 @@ const ParkingLotOperator = () => {
             return;
         }
 
-        const plateNumberPattern = /^[A-Z]{2}-\d{4}$/;
-        if (!plateNumberPattern.test(plateNumber)) {
+        if (!validatePlateNumber(plateNumber)) {
             alert('Invalid plate number format. (e.g., AB-1234).');
             setPlateNumber('');
             return;

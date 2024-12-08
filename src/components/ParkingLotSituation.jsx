@@ -40,7 +40,7 @@ const ParkingLotSituation = () => {
                 return (
                     <div key={index} className="parking-lot">
                         {renderTable(cars, columns)}
-                        <div>{lot.name}</div>
+                        <div className="parking-lot-name">{lot.name}</div>
                     </div>
                 );
             })}

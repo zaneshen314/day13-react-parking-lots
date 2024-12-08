@@ -1,4 +1,3 @@
-// src/components/ParkingLot.js
 import React from 'react';
 import ParkingLotOperator from './ParkingLotOperator';
 import ParkingLotSituation from './ParkingLotSituation';

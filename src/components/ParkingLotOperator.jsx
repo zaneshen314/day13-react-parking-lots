@@ -1,20 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { getParkingStrategy, parkCar, fetchCar } from '../api/parking';
+import { ParkingContext } from '../context/ParkingContext';
+import './css/ParkingLotOperator.css';
 
 const ParkingLotOperator = () => {
     const [plateNumber, setPlateNumber] = useState('');
     const [parkingStrategy, setParkingStrategy] = useState('Standard');
+    const [strategies, setStrategies] = useState([]);
+    const { dispatch } = useContext(ParkingContext);
 
-    const handlePark = () => {
-        console.log(`Plate Number: ${plateNumber}, Parking Strategy: ${parkingStrategy}`);
+    useEffect(() => {
+        const fetchStrategies = async () => {
+            try {
+                const data = await getParkingStrategy();
+                setStrategies(data);
+            } catch (error) {
+                console.error('Error fetching parking strategies:', error);
+            }
+        };
+
+        fetchStrategies();
+    }, []);
+
+    const handlePark = async () => {
+        if (!plateNumber) {
+            alert('Plate number cannot be empty.');
+            return;
+        }
+
+        const plateNumberPattern = /^[A-Z]{2}-\d{4}$/;
+        if (!plateNumberPattern.test(plateNumber)) {
+            alert('Invalid plate number format. (e.g., AB-1234).');
+            setPlateNumber('');
+            return;
+        }
+
+        try {
+            const response = await parkCar({ plateNumber }, parkingStrategy);
+            dispatch({ type: 'PARK_CAR', payload: response });
+        } catch (error) {
+            console.error('Error parking car:', error);
+        }
     };
 
-    const handleFetch = () => {
-        console.log(`Plate Number: ${plateNumber}`);
+    const handleFetch = async () => {
+        if (!plateNumber) {
+            alert('Plate number cannot be empty.');
+            return;
+        }
+
+        const plateNumberPattern = /^[A-Z]{2}-\d{4}$/;
+        if (!plateNumberPattern.test(plateNumber)) {
+            alert('Invalid plate number format. (e.g., AB-1234).');
+            setPlateNumber('');
+            return;
+        }
+
+        try {
+            const response = await fetchCar({ plateNumber });
+            dispatch({ type: 'FETCH_CAR', payload: response });
+        } catch (error) {
+            console.error('Error fetching car:', error);
+        }
     };
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px' }}>
-            <div style={{ padding: '5px' }}>
+        <div className="parking-lot-operator">
+            <div className="parking-lot-operator-element">
                 <label>
                     Plate Number:
                     <input
@@ -25,7 +77,7 @@ const ParkingLotOperator = () => {
                     />
                 </label>
             </div>
-            <div style={{ padding: '5px' }}>
+            <div className="parking-lot-operator-element">
                 <label>
                     Parking Strategy:
                     <select
@@ -33,24 +85,26 @@ const ParkingLotOperator = () => {
                         onChange={(e) => setParkingStrategy(e.target.value)}
                         style={{ marginLeft: '5px' }}
                     >
-                        <option value="Standard">Standard</option>
-                        <option value="Smart">Smart</option>
-                        <option value="SuperSmart">SuperSmart</option>
+                        {strategies.map((strategy) => (
+                            <option key={strategy} value={strategy}>
+                                {strategy}
+                            </option>
+                        ))}
                     </select>
                 </label>
             </div>
-            <div style={{ padding: '5px' }}>
+            <div className="parking-lot-operator-element">
                 <button
                     onClick={handlePark}
-                    style={{ backgroundColor: '#a7d9te', padding: '5px 10px' }}
+                    className="parking-lot-operator-button"
                 >
                     Park
                 </button>
             </div>
-            <div style={{ padding: '5px' }}>
+            <div className="parking-lot-operator-element">
                 <button
                     onClick={handleFetch}
-                    style={{ backgroundColor: '#a7d9te', padding: '5px 10px' }}
+                    className="parking-lot-operator-button"
                 >
                     Fetch
                 </button>

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Car from './Car';
 import { ParkingContext } from '../context/ParkingContext';
-import './css/ParkingLotSlot.css';
+import './css/ParkingLotSituation.css';
 
 const ParkingLotSituation = () => {
     const { state } = useContext(ParkingContext);

@@ -1,0 +1,53 @@
+/* 基本布局样式 */
+.parking-lot-container {
+    display: flex;
+    justify-content: space-around; /* 水平居中 */
+    flex-wrap: wrap; /* 自动换行 */
+    margin: 20px;
+}
+
+/* 表格样式 */
+.parking-lot-table {
+    border-collapse: collapse;
+    margin: 10px;
+    background: linear-gradient(45deg, #2196F3, #21CBF3); /* 渐变背景 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 加强阴影 */
+}
+
+.parking-lot-cell {
+    border: 1px solid black;
+    width: 100px;
+    height: 50px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2); /* 半透明背景 */
+    color: #000; /* 黑色文字 */
+    font-size: 14px; /* 适中字体大小 */
+    font-weight: bold; /* 强调文字 */
+    transition: all 0.3s ease; /* 过渡效果 */
+}
+
+.parking-lot-cell:hover {
+    background-color: rgba(255, 255, 255, 0.5); /* 鼠标悬停时背景更透明 */
+    color: #fff; /* 鼠标悬停时文字颜色变白 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 鼠标悬停时阴影效果 */
+}
+
+/* 总体样式 */
+.parking-lot {
+    text-align: center;
+    font-size: 18px; /* 字体大小加大 */
+    font-weight: bold;
+    padding: 20px;
+    background: linear-gradient(45deg, #00C6FF, #0072FF); /* 渐变背景 */
+    border-radius: 15px; /* 圆角 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 强化阴影 */
+    color: #fff; /* 白色文字 */
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    .parking-lot-cell {
+        width: 80px; /* 调整单元格宽度 */
+        height: 40px; /* 调整单元格高度 */
+    }
+}

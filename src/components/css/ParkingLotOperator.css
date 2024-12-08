@@ -1,0 +1,66 @@
+.parking-lot-operator {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    gap: 20px; /* 元素间距增加 */
+    padding: 20px;
+    flex-wrap: wrap;
+    max-width: 100%;
+    background: linear-gradient(45deg, #6a11cb, #2575fc); /* 渐变背景 */
+    border-radius: 15px; /* 圆角容器 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 强化阴影 */
+}
+
+.parking-lot-operator-element {
+    padding: 15px 25px; /* 较大的内边距，提升点击体验 */
+    background: rgba(255, 255, 255, 0.1); /* 半透明背景 */
+    border-radius: 10px; /* 圆角 */
+    color: #fff; /* 白色文字 */
+    font-size: 16px; /* 增加文字大小 */
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 强化阴影 */
+    transition: all 0.3s ease-out; /* 平滑过渡 */
+    backdrop-filter: blur(10px); /* 背景模糊效果 */
+}
+
+.parking-lot-operator-element:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大 */
+    background: rgba(255, 255, 255, 0.3); /* 提高背景透明度 */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* 鼠标悬停时加重阴影 */
+}
+
+.parking-lot-operator-button {
+    background-color: #ff4081; /* 按钮背景色，炫酷的粉色 */
+    color: #fff; /* 按钮文字颜色 */
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px; /* 圆形按钮 */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* 按钮动画 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 按钮阴影 */
+}
+
+.parking-lot-operator-button:hover {
+    background-color: #ff79b0; /* 鼠标悬停时按钮颜色渐变 */
+    transform: translateY(-4px); /* 鼠标悬停时按钮稍微上升 */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* 加重阴影 */
+}
+
+.parking-lot-operator-button:active {
+    background-color: #e03e6f; /* 点击时按钮颜色 */
+    transform: translateY(2px); /* 点击时按钮稍微下沉 */
+}
+
+.parking-lot-operator-element span {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    opacity: 0.8; /* 让辅助文字稍微透明 */
+    transition: opacity 0.3s ease; /* 辅助文字的渐变效果 */
+}
+
+.parking-lot-operator-element:hover span {
+    opacity: 1; /* 鼠标悬停时让辅助文字变清晰 */
+}

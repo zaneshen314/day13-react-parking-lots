@@ -1,10 +1,9 @@
-import axios from 'axios';
+import instance from './interceptor';
 
-const baseUrl = 'http://localhost:8080';
 // Get parking strategies
 export const getParkingStrategy = async () => {
     try {
-        const response = axios.get(`${baseUrl}/parking/strategy`);
+        const response = await instance.get('/parking/strategy');
         return response.data;
     } catch (error) {
         console.error('Error fetching parking strategies:', error);
@@ -15,7 +14,7 @@ export const getParkingStrategy = async () => {
 // Get parking lots
 export const getParkingLots = async () => {
     try {
-        const response = axios.get(`${baseUrl}/parking`);
+        const response = await instance.get('/parking');
         return response.data;
     } catch (error) {
         console.error('Error fetching parking lots:', error);
@@ -26,7 +25,7 @@ export const getParkingLots = async () => {
 // Park a car
 export const parkCar = async (car, strategy) => {
     try {
-        const response = axios.post(`${baseUrl}/parking/park/${strategy}`, car);
+        const response = await instance.post(`/parking/park/${strategy}`, car);
         return response.data;
     } catch (error) {
         console.error('Error parking car:', error);
@@ -37,7 +36,7 @@ export const parkCar = async (car, strategy) => {
 // Fetch a car
 export const fetchCar = async (ticket) => {
     try {
-        const response = axios.post(`${baseUrl}/parking/fetch`, ticket);
+        const response = await instance.post('/parking/fetch', ticket);
         return response.data;
     } catch (error) {
         console.error('Error fetching car:', error);

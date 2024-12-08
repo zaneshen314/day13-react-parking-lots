@@ -7,6 +7,8 @@ const ParkingLotOperator = () => {
     const [plateNumber, setPlateNumber] = useState('');
     const [parkingStrategy, setParkingStrategy] = useState('Standard');
     const [strategies, setStrategies] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [carDetails, setCarDetails] = useState(null);
     const { dispatch } = useContext(ParkingContext);
 
     useEffect(() => {
@@ -62,6 +64,8 @@ const ParkingLotOperator = () => {
         try {
             const response = await fetchCar({ plateNumber });
             dispatch({ type: 'FETCH_CAR', payload: response });
+            setCarDetails(response);
+            setModalVisible(true);
         } catch (error) {
             console.error('Error fetching car:', error);
         }
@@ -112,6 +116,18 @@ const ParkingLotOperator = () => {
                     Fetch
                 </button>
             </div>
+            {modalVisible && carDetails && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2>Car Details</h2>
+                        <p>Plate Number: {carDetails.plateNumber}</p>
+                        <p>Parking Time: {new Date(carDetails.startTime).toLocaleString()}</p>
+                        <p>Fetch Time: {new Date(carDetails.endTime).toLocaleString()}</p>
+                        <p>Cost: ${carDetails.cost}</p>
+                        <button onClick={() => setModalVisible(false)}>Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

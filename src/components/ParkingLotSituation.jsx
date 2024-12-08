@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Car from './Car';
+import { ParkingContext } from '../context/ParkingContext';
+import './css/ParkingLotSlot.css';
 
-const ParkingLotSlot = () => {
-    const parkingLots = [
-        { name: 'The Plaza Park', capacity: 9, cars: ['AB-1123', 'DE-1456', null, null, null, null, null, null, null] },
-        { name: 'City Mall Garage', capacity: 12, cars: ['GH-1789', null, 'JK-1012', null, null, null, 'MN-9345', null, null, null, null, null] },
-        { name: 'Office Tower Parking', capacity: 9, cars: [null, null, null, null, null, null, null, null, null] }
-    ];
+const ParkingLotSituation = () => {
+    const { state } = useContext(ParkingContext);
+    const { parkingLots } = state;
 
     const renderTable = (cars, columns) => {
         const rows = [];
@@ -14,12 +13,12 @@ const ParkingLotSlot = () => {
             rows.push(cars.slice(i, i + columns));
         }
         return (
-            <table style={{ borderCollapse: 'collapse', margin: '10px' }}>
+            <table className="parking-lot-table">
                 <tbody>
                 {rows.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {row.map((car, colIndex) => (
-                            <td key={colIndex} style={{ border: '1px solid black', width: '30px', height: '30px', textAlign: 'center' }}>
+                            <td key={colIndex} className="parking-lot-cell">
                                 {car ? <Car plateNumber={car} /> : ''}
                             </td>
                         ))}
@@ -31,12 +30,16 @@ const ParkingLotSlot = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className="parking-lot-container">
             {parkingLots.map((lot, index) => {
                 const columns = Math.ceil(Math.sqrt(lot.capacity));
+                const cars = Array(lot.capacity).fill(null);
+                lot.tickets.forEach(ticket => {
+                    cars[ticket.position - 1] = ticket.plateNumber;
+                });
                 return (
-                    <div key={index} style={{ textAlign: 'center' }}>
-                        {renderTable(lot.cars, columns)}
+                    <div key={index} className="parking-lot">
+                        {renderTable(cars, columns)}
                         <div>{lot.name}</div>
                     </div>
                 );
@@ -45,4 +48,4 @@ const ParkingLotSlot = () => {
     );
 };
 
-export default ParkingLotSlot;
+export default ParkingLotSituation;
